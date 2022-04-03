@@ -13,4 +13,4 @@ This repository contains the Health Analytics Case Study from the Data With Dann
 - [Solutions]
 
 <p align="center">
-<img src="/Images/HA1.png" width=40% height=40%>
+<img src="/Images/HA1.png" width=70% height=70%>
