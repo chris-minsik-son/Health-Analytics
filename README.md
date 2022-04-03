@@ -35,7 +35,7 @@ Looking at the logs data - what is the number and percentage of the active user 
 7. Have at least 2 types of measurements?
 8. Have all 3 measures - blood glucose, weight and blood pressure?
 
-For users that have blood pressure measurements:
+For users that have blood pressure measurements: <br />
 9. What is the median systolic/diastolic blood pressure values?
 
 ## Solutions
