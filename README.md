@@ -40,10 +40,75 @@ For users that have blood pressure measurements:
 
 ## Solutions
 **1. How many unique users exist in the logs dataset?**
+```sql
+SELECT
+    COUNT(DISTINCT id) AS "Number of Unique IDs"
+FROM health.user_logs;
+```
+
+ Number of Unique IDs
+----------------------
+                  554
+
+---
+
+```sql
+DROP TABLE IF EXISTS user_measure_count;
+CREATE TEMP TABLE user_measure_count AS (
+  SELECT
+    id,
+    COUNT(*) AS measure_count,
+    COUNT(DISTINCT measure) as unique_measures
+  FROM health.user_logs
+  GROUP BY id
+);
+```
+
+---
+
 **2. How many total measurements do we have per user on average?**
+```sql
+SELECT
+  ROUND(AVG(measure_count)) AS "AVERAGE"
+FROM user_measure_count;
+```
+
+ Average
+-------
+    79
+
+---
+
 **3. What about the median number of measurements per user?**
+NA
+
 **4. How many users have 3 or more measurements?**
+```sql
+SELECT
+  COUNT(*)
+FROM user_measure_count
+WHERE measure_count >= 3;
+```
+
+ count
+-------
+   209
+
+---
+
 **5. How many users have 1,000 or more measurements?**
+```sql
+SELECT
+  COUNT(*)
+FROM user_measure_count
+WHERE measure_count >= 1000;
+```
+
+ count
+-------
+     5
+
+---
 
 Looking at the logs data - what is the number and percentage of the active user base who:
 
