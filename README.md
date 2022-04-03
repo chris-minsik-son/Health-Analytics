@@ -12,9 +12,6 @@ This repository contains the Health Analytics Case Study from the Data With Dann
   - [Case Study Questions](#case-study-questions)
   - [Solutions](#solutions)
 
-<p align="center">
-<img src="/Images/HA1.png" width=70% height=70%>
-
 ## Context
 We’ve just received an urgent request from the General Manager of Analytics at Health Co requesting our assistance with their analysis of the ```health.user_logs``` dataset.
 
