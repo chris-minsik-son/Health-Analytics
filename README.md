@@ -6,3 +6,11 @@
 This repository contains the Health Analytics Case Study from the Data With Danny Serious SQL Course.
 
 ---
+
+## Table of Contents
+- [Context]
+- [Case Study Questions]
+- [Solutions]
+
+<p align="center">
+<img src="/Images/HA1.png" width=40% height=40%>
