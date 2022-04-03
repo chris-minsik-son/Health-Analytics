@@ -162,7 +162,60 @@ FROM final_table;
 |                 325 |        808 |      40.22 |
 
 **7. Have at least 2 types of measurements?**
+```sql
+WITH user_measure_count AS (
+  SELECT
+    id,
+    COUNT(*) AS measure_count,
+    COUNT(DISTINCT measure) as unique_measures
+  FROM health.user_logs
+  GROUP BY id
+)
+SELECT
+  COUNT(*)
+FROM user_measure_count
+WHERE unique_measures >= 2;
+```
+
+| count |
+|-------|
+|   204 |
+
 **8. Have all 3 measures - blood glucose, weight and blood pressure?**
+Observe how many unique measures are in the dataset:
+```sql
+SELECT DISTINCT(measure) FROM health.user_logs;
+```
+Since there are 3 unique measures 'blood_glucose', 'blood_pressure' and 'weight'
+```sql
+WITH user_measure_count AS (
+  SELECT
+    id,
+    COUNT(*) AS measure_count,
+    COUNT(DISTINCT measure) as unique_measures
+  FROM health.user_logs
+  GROUP BY id
+)
+SELECT
+  COUNT(*)
+FROM user_measure_count
+WHERE unique_measures = 3;
+```
+
+| count |
+|-------|
+|    50 |
 
 For users that have blood pressure measurements:
 **9. What is the median systolic/diastolic blood pressure values?**
+```sql
+SELECT
+  PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY systolic) AS "Median Systolic Value",
+  PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY diastolic) AS "Median Value Diastolic"
+FROM health.user_logs
+WHERE measure = 'blood_pressure';
+```
+
+| Median Systolic Value | Median Value Diastolic |
+|-----------------------|------------------------|
+|                   126 |                     79 |
