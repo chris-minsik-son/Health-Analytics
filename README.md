@@ -216,6 +216,7 @@ WHERE unique_measures = 3;
 |    50 |
 
 For users that have blood pressure measurements:
+
 **9. What is the median systolic/diastolic blood pressure values?**
 ```sql
 SELECT
