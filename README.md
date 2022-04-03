@@ -46,9 +46,9 @@ SELECT
 FROM health.user_logs;
 ```
 
- Number of Unique IDs
-----------------------
-                  554
+| Number of Unique IDs |
+|----------------------|
+|                  554 |
 
 ---
 
@@ -69,13 +69,13 @@ CREATE TEMP TABLE user_measure_count AS (
 **2. How many total measurements do we have per user on average?**
 ```sql
 SELECT
-  ROUND(AVG(measure_count)) AS "AVERAGE"
+  ROUND(AVG(measure_count)) AS "average"
 FROM user_measure_count;
 ```
 
- Average
--------
-    79
+| average |
+|---------|
+|      79 |
 
 ---
 
@@ -90,9 +90,9 @@ FROM user_measure_count
 WHERE measure_count >= 3;
 ```
 
- count
--------
-   209
+| count |
+|-------|
+|   209 |
 
 ---
 
@@ -104,9 +104,9 @@ FROM user_measure_count
 WHERE measure_count >= 1000;
 ```
 
- count
--------
-     5
+| count |
+|-------|
+|     5 |
 
 ---
 
