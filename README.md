@@ -69,11 +69,11 @@ CREATE TEMP TABLE user_measure_count AS (
 **2. How many total measurements do we have per user on average?**
 ```sql
 SELECT
-  ROUND(AVG(measure_count)) AS "average"
+  ROUND(AVG(measure_count)) AS "Average"
 FROM user_measure_count;
 ```
 
-| average |
+| Average |
 |---------|
 |      79 |
 
@@ -81,6 +81,8 @@ FROM user_measure_count;
 
 **3. What about the median number of measurements per user?**
 NA
+
+---
 
 **4. How many users have 3 or more measurements?**
 ```sql
@@ -113,6 +115,52 @@ WHERE measure_count >= 1000;
 Looking at the logs data - what is the number and percentage of the active user base who:
 
 **6. Have logged blood glucose measurements?**
+```sql
+SELECT COUNT(DISTINCT id) AS "Users Logging Blood Glucose"
+FROM health.user_logs
+WHERE measure = 'blood_glucose';
+```
+
+| Users Logging Blood Glucose |
+|-----------------------------|
+|                         325 |
+
+Percentage of the active user base logging blood glucose measurements:
+```sql
+DROP TABLE IF EXISTS groupby_table;
+CREATE TEMP TABLE groupby_table AS (
+  SELECT
+    id,
+    measure,
+    SUM(COUNT(DISTINCT id)) OVER() AS user_count
+  FROM health.user_logs
+  GROUP BY
+    id,
+    measure
+);
+```
+
+```sql
+WITH final_table AS (
+  SELECT
+    COUNT(*) AS blood_glucose_count,
+    user_count
+    -- ROUND(100 * blood_glucose_count / user_count) AS percentage
+  FROM groupby_table
+  WHERE measure = 'blood_glucose'
+  GROUP BY user_count
+)
+SELECT
+  blood_glucose_count,
+  user_count,
+  ROUND(100 * blood_glucose_count / user_count, 2) AS percentage
+FROM final_table;
+```
+
+| blood_glucose_count | user_count | percentage |
+|---------------------|------------|------------|
+|                 325 |        808 |      40.22 |
+
 **7. Have at least 2 types of measurements?**
 **8. Have all 3 measures - blood glucose, weight and blood pressure?**
 
