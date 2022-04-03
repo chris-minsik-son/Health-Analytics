@@ -80,7 +80,16 @@ FROM user_measure_count;
 ---
 
 **3. What about the median number of measurements per user?**
-NA
+```sql
+SELECT 
+   PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY measure_count) AS median_value 
+FROM user_measure_count;
+```
+
+| median_value |
+|--------------|
+|            2 |
+
 
 ---
 
@@ -145,7 +154,6 @@ WITH final_table AS (
   SELECT
     COUNT(*) AS blood_glucose_count,
     user_count
-    -- ROUND(100 * blood_glucose_count / user_count) AS percentage
   FROM groupby_table
   WHERE measure = 'blood_glucose'
   GROUP BY user_count
